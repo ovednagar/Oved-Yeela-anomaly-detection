@@ -104,6 +104,4 @@ ENV/
 .mypy_cache/
 
 #pickles and results
-gif/
-data/
 databases/
