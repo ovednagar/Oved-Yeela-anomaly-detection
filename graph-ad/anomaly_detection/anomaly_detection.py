@@ -147,7 +147,7 @@ class AnomalyDetection:
 
 if __name__ == "__main__":
     AnomalyDetection().build()
-    print(say.Ghostbusters().milk("Who you gonna call?\n\tYeela!"))
+    print(say.Ghostbusters().milk("Who you gonna call?      Yeela!     (:"))
 
 
 
