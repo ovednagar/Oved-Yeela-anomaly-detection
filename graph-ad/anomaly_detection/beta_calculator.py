@@ -39,14 +39,14 @@ class BetaCalculator:
 
 
 class LinearContext(BetaCalculator):
-    def __init__(self, graphs: Graphs, feature_pairs, split=1):
+    def __init__(self, graphs: Graphs, feature_pairs, logger: BaseLogger = None, split=1):
         self._interval = int(graphs.number_of_graphs() / split)
         self._all_features = graphs.features_matrix_by_index(for_all=True)
         self._nodes_for_graph = graphs.nodes_count_list()
         self._all_ftr_graph_index = []
         for i in range(len(self._nodes_for_graph) + 1):
             self._all_ftr_graph_index.append(np.sum(self._nodes_for_graph[0:i]))
-        super(LinearContext, self).__init__(graphs, feature_pairs)
+        super(LinearContext, self).__init__(graphs, feature_pairs, logger=logger)
 
     def _linear_regression(self, x_np, y_np):
         """

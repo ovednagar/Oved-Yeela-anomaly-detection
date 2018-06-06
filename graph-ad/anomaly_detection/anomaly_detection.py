@@ -1,6 +1,18 @@
+import sys
+sys.path.insert(0, '../../graph-measures/features_infra')
+sys.path.insert(0, '../../graph-measures/features_algorithms')
+sys.path.insert(0, '../../graph-measures/graph_infra')
+sys.path.insert(0, '../../graph-measures/measure_tests')
+sys.path.insert(0, '../../graph-measures/edges')
+sys.path.insert(0, '../../graph-measures/vertices')
+sys.path.insert(0, '../../graph-measures/motif_variations')
+sys.path.insert(0, '../../graph-measures')
+sys.path.insert(0, '../../multi-graph')
+sys.path.insert(0, '../../utils')
+
 import pickle
 from os import path
-import cowsay
+import say
 
 from beta_calculator import LinearRegBetaCalculator, LinearContext
 from feature_calculators import FeatureMeta
@@ -79,7 +91,7 @@ class AnomalyDetection:
                               '23-Jan-2002', '30-Jan-2002', '04-Feb-2002']     # Enron
 
         # init logger
-        self._logger = PrintLogger("default Anomaly logger")
+        self._logger = PrintLogger(self._params['logger_name'])
         # init multi-graph
         self._graphs = Graphs(self._params['database'], files_path=self._params['files_path'], logger=self._logger,
                               features_meta=ANOMALY_DETECTION_FEATURES, directed=self._params['directed'],
@@ -102,7 +114,7 @@ class AnomalyDetection:
         best_pairs = pearson_picker.best_pairs()
 
         # step 2 - calculate beta matrix
-        beta = LinearContext(self._graphs, best_pairs, split=self._params['context_beta'])
+        beta = LinearContext(self._graphs, best_pairs, split=self._params['context_beta'], logger=self._logger)
         beta_matrix = beta.beta_matrix()
 
         # step 3 - score each graph
@@ -135,6 +147,9 @@ class AnomalyDetection:
 
 if __name__ == "__main__":
     AnomalyDetection().build()
-    cowsay.ghostbusters("Who you gonna call?\n\tYeela!")
+    print(say.Ghostbusters().milk("Who you gonna call?\n\tYeela!"))
+
+
+
 
 
